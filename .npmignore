@@ -1,0 +1,7 @@
+# Folders
+node_modules/
+auth_info_baileys/
+
+# Files
+.env
+example.js

@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Private Session Data
+auth_info_baileys/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment Files
+.env

@@ -1,0 +1,32 @@
+{
+  "name": "@onex/wa-sender",
+  "version": "1.0.0",
+  "description": "A simple WhatsApp sender with predefined templates.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node example.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seneth-Jayashan/wa-sender.git"
+  },
+  "homepage": "https://github.com/Seneth-Jayashan/wa-sender#readme",
+  "keywords": [
+    "whatsapp",
+    "baileys",
+    "automation"
+  ],
+  "author": "S JAY",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^7.0.0-rc.6",
+    "pino": "^10.1.0",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^11.2.1"
+  }
+}
