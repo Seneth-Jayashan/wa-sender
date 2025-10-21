@@ -1,6 +1,6 @@
 {
   "name": "@onexnpm/wa-sender",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple WhatsApp sender with predefined templates.",
   "main": "index.js",
   "type": "module",
