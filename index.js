@@ -77,7 +77,7 @@ export class WhatsappClient extends EventEmitter {
             logger: this.#logger,
             browser: Browsers.macOS('Chrome'),
             auth: state,
-            syncFullHistory: true,
+            syncFullHistory: false, // optional: faster first connection
             getMessage: async (key) => this.#messageStore.get(key.remoteJid)?.get(key.id),
             cachedGroupMetadata: async (jid) => this.#groupCache.get(jid),
             msgRetryCounterMap: this.#msgRetryCounterMap
@@ -87,33 +87,39 @@ export class WhatsappClient extends EventEmitter {
         this.#sock.ev.on('creds.update', saveCreds);
 
         return new Promise((resolve, reject) => {
-            this.#sock.ev.on('connection.update', (update) => {
+            let resolved = false;
+
+            const handleConnectionUpdate = (update) => {
                 const { connection, lastDisconnect, qr } = update;
 
-                // Print QR code in terminal if available
                 if (qr) {
-                    console.log('Scan this QR code with your WhatsApp:');
+                    console.log('Scan this QR code:');
                     qrcode.generate(qr, { small: true });
                 }
 
-                if (connection === 'open') {
+                if (connection === 'open' && !resolved) {
+                    resolved = true;
                     console.log('WhatsApp client connected!');
-                    resolve();
+                    resolve(); // socket fully ready
                 }
 
                 if (connection === 'close') {
-                    const shouldReconnect = lastDisconnect?.error instanceof Boom
-                        ? lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut
-                        : true;
-
+                    const shouldReconnect = lastDisconnect?.error instanceof Boom &&
+                                            lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut;
                     if (!shouldReconnect) {
                         fs.rmSync(this.#authStatePath, { recursive: true, force: true });
                         reject(new Error('Logged out. Please login again.'));
+                    } else {
+                        console.log('Connection closed, retrying in 5s...');
+                        setTimeout(() => this.initialize(), 5000);
                     }
                 }
-            });
+            };
+
+            this.#sock.ev.on('connection.update', handleConnectionUpdate);
         });
     }
+
 
     async sendTemplateMessage(recipient, name, params) {
         if (!this.#sock) throw new Error('Client not initialized.');
