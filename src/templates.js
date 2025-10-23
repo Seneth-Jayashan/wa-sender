@@ -1,150 +1,96 @@
 // src/templates.js
 
-/**
- * Generates a welcome message for a new user.
- * @param {object} data - The data for the template.
- * @param {string} data.name - The user's first name.
- * @param {string} data.company - The name of the company or service.
- * @returns {string} The formatted message.
- */
-const welcome = (data) => 
-`👋 Welcome, *${data.name}*!
+const welcome = (data) =>
+  `🎉 Welcome, ${data.name}! We’re excited to have you join ${data.company || 'our team'}. Let’s make great things happen together!`;
 
-We are thrilled to have you join ${data.company || 'our team'}.
-
-To get started, please complete your profile or take a look at our introductory guide. We're here if you have any questions.`;
-
-/**
- * Generates a one-time verification code.
- * @param {object} data - The data for the template.
- * @param {string} data.code - The verification code.
- * @returns {string} The formatted message.
- */
 const verificationCode = (data) =>
-`Your verification code is: *${data.code}*
+  `Your verification code is: *${data.code}*. It expires in 10 minutes. Please do not share it with anyone.`;
 
-This code will expire in 10 minutes. For your security, please do not share this code with anyone.`;
-
-/**
- * Generates a password reset code.
- * @param {object} data - The data for the template.
- * @param {string} data.code - The password reset code.
- * @returns {string} The formatted message.
- */
 const resetCode = (data) =>
-`Your password reset code is: *${data.code}*
+  `🔑 Password Reset\nYour reset code is *${data.code}*. Use this to securely reset your password.`;
 
-If you did not request this password reset, please secure your account and ignore this message.`;
-
-/**
- * Generates a generic order status update.
- * @param {object} data - The data for the template.
- * @param {string} data.orderId - The unique order identifier.
- * @param {string} data.status - The new status of the order (e.g., "Processing", "Shipped", "Delivered").
- * @returns {string} The formatted message.
- */
-const orderStatus = (data) =>
-`*Order Update*
-
-Status for your order *#${data.orderId}* has been updated to: *${data.status}*.
-
-We will notify you of any further changes.`;
-
-/**
- * Generates a shipping update with a tracking number.
- * @param {object} data - The data for the template.
- * @param {string} data.orderId - The unique order identifier.
- * @param {string} data.carrier - The shipping carrier (e.g., "FedEx", "UPS").
- * @param {string} data.trackingNumber - The tracking number.
- * @returns {string} The formatted message.
- */
-const shippingUpdate = (data) =>
-`🚚 *Your Order has Shipped!*
-
-Good news! Your order *#${data.orderId}* is on its way.
-
-Carrier: ${data.carrier}
-Tracking #: *${data.trackingNumber}*
-
-You can track your package on the carrier's website.`;
-
-/**
- * Generates a confirmation that a password has been successfully changed.
- * @param {object} data - The data for the template.
- * @param {string} data.username - The user's username or name.
- * @returns {string} The formatted message.
- */
 const passwordChangedNotice = (data) =>
-`*Security Alert: Password Changed*
+  `🔐 Hi ${data.username}, your password was changed successfully. If this wasn’t you, please reset it immediately.`;
 
-This is a confirmation that the password for your account (*${data.username}*) was successfully changed.
+const orderStatus = (data) =>
+  `📦 Order Update\nOrder #${data.orderId} is now *${data.status}*. Thank you for shopping with us!`;
 
-If you did *not* make this change, please contact our support team immediately.`;
+const shippingUpdate = (data) =>
+  `🚚 Shipping Update for Order #${data.orderId}\nCarrier: ${data.carrier}\nTracking: ${data.trackingNumber}`;
 
-/**
- * Generates a reminder for an upcoming appointment.
- * @param {object} data - The data for the template.
- * @param {string} data.serviceName - The name of the service or event.
- * @param {string} data.dateTime - The full date and time of the appointment (e.g., "Oct 22, 2025 at 2:30 PM").
- * @param {string} [data.location] - The location of the appointment (optional).
- * @returns {string} The formatted message.
- */
-const appointmentReminder = (data) =>
-`*Appointment Reminder*
-
-This is a friendly reminder for your upcoming appointment:
-
-Service: *${data.serviceName}*
-When: *${data.dateTime}*
-${data.location ? `Where: ${data.location}` : ''}
-
-Please let us know if you need to reschedule.`;
-
-/**
- * Generates a notification for a new invoice.
- * @param {object} data - The data for the template.
- * @param {string} data.invoiceId - The unique invoice identifier.
- * @param {string} data.amount - The total amount due (e.g., "$99.99").
- * @param {string} data.dueDate - The due date for the payment.
- * @returns {string} The formatted message.
- */
 const invoiceGenerated = (data) =>
-`*New Invoice Generated*
+  `🧾 Invoice #${data.invoiceId} generated.\nAmount: Rs. ${data.amount}\nDue Date: ${data.dueDate}`;
 
-A new invoice (*#${data.invoiceId}*) has been generated for your account.
-
-Amount Due: *${data.amount}*
-Due Date: *${data.dueDate}*
-
-You can view and pay the invoice in your account dashboard.`;
-
-/**
- * Generates a reminder for an upcoming subscription renewal.
- * @param {object} data - The data for the template.
- * @param {string} data.planName - The name of the subscription plan.
- * @param {string} data.renewalDate - The date the subscription will renew.
- * @param {string} data.amount - The amount that will be charged.
- * @returns {string} The formatted message.
- */
 const subscriptionRenewalReminder = (data) =>
-`*Subscription Renewal Notice*
+  `🔔 Reminder: Your subscription for *${data.planName}* renews on ${data.renewalDate} for Rs. ${data.amount}.`;
 
-Your *${data.planName}* plan is scheduled to renew on *${data.renewalDate}*.
+const paymentReceived = (data) =>
+  `💰 Payment Received!\nWe’ve received Rs. ${data.amount} for Invoice #${data.invoiceId}. Thank you!`;
 
-The renewal amount will be *${data.amount}*. No action is needed if you wish to continue your subscription.
+const paymentFailed = (data) =>
+  `⚠️ Payment Failed\nYour payment of Rs. ${data.amount} could not be processed. Please update your payment method.`;
 
-You can manage your subscription settings in your account profile.`;
+const appointmentReminder = (data) =>
+  `📅 Reminder: Your ${data.serviceName} appointment is on ${data.dateTime} at ${data.location || ''}. Please be on time.`;
 
+const eventInvitation = (data) =>
+  `🎊 You’re invited to *${data.eventName}*! Join us at ${data.venue} on ${data.date} at ${data.time}. RSVP now to confirm attendance.`;
 
-// Export all templates
+const meetingReminder = (data) =>
+  `📌 Meeting Reminder: Your meeting with *${data.withPerson}* is scheduled for ${data.dateTime}. Join via ${data.meetingLink}`;
+
+const accountDeactivated = (data) =>
+  `⚠️ Hello ${data.username}, your account has been temporarily deactivated. Contact support if this was a mistake.`;
+
+const accountReactivated = (data) =>
+  `✅ Good news ${data.username}! Your account has been reactivated. You can now continue using our services.`;
+
+const otpLogin = (data) =>
+  `🔒 Login OTP: *${data.otp}* (valid for 5 minutes). Please do not share it with anyone.`;
+
+const feedbackRequest = (data) =>
+  `💬 Hi ${data.name}, we’d love your feedback on your recent experience with ${data.company}. Share your thoughts with us!`;
+
+const thankYouPurchase = (data) =>
+  `🙏 Thank you ${data.name} for shopping with ${data.company}! We hope to serve you again soon.`;
+
+const promotionalOffer = (data) =>
+  `🎁 Special Offer: ${data.offerTitle}\nUse code *${data.promoCode}* to get ${data.discount} off. Valid till ${data.expiryDate}!`;
+
+const seasonalGreeting = (data) =>
+  `✨ ${data.greetingTitle} from all of us at ${data.company}! Wishing you and your loved ones ${data.message}.`;
+
+const systemAlert = (data) =>
+  `⚙️ System Alert\n${data.alertMessage}\nTime: ${data.timestamp}`;
+
+const newUserSignup = (data) =>
+  `👋 New User Signup: ${data.name} (${data.email}) has just registered on the platform.`;
+
+const adminNotification = (data) =>
+  `🚨 Admin Notification: ${data.message}`;
+
 export const templates = {
   welcome,
   verificationCode,
   resetCode,
+  passwordChangedNotice,
   orderStatus,
   shippingUpdate,
-  passwordChangedNotice,
-  appointmentReminder,
   invoiceGenerated,
-  subscriptionRenewalReminder
+  subscriptionRenewalReminder,
+  paymentReceived,
+  paymentFailed,
+  appointmentReminder,
+  eventInvitation,
+  meetingReminder,
+  accountDeactivated,
+  accountReactivated,
+  otpLogin,
+  feedbackRequest,
+  thankYouPurchase,
+  promotionalOffer,
+  seasonalGreeting,
+  systemAlert,
+  newUserSignup,
+  adminNotification
 };
