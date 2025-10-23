@@ -69,19 +69,31 @@ node example.js
 
 ---
 
-## 🧩 Templates Included
-
-| Template Name | Description | Example Fields |
-|----------------|--------------|----------------|
-| `welcome` | Sends a welcome message | `{ name, company }` |
-| `verificationCode` | Sends a verification code | `{ code }` |
-| `resetCode` | Password reset code | `{ code }` |
-| `orderStatus` | Order status update | `{ orderId, status }` |
-| `shippingUpdate` | Shipping update with tracking | `{ orderId, carrier, trackingNumber }` |
-| `passwordChangedNotice` | Password change alert | `{ username }` |
-| `appointmentReminder` | Appointment notification | `{ serviceName, dateTime, location }` |
-| `invoiceGenerated` | New invoice notification | `{ invoiceId, amount, dueDate }` |
-| `subscriptionRenewalReminder` | Subscription renewal alert | `{ planName, renewalDate, amount }` |
+| Template Name                 | Description                                           | Example Fields                                    |
+| ----------------------------- | ----------------------------------------------------- | ------------------------------------------------- |
+| `welcome`                     | Sends a welcome message                               | `{ name, company }`                               |
+| `verificationCode`            | Sends a verification code                             | `{ code }`                                        |
+| `resetCode`                   | Sends a password reset code                           | `{ code }`                                        |
+| `passwordChangedNotice`       | Alerts user that their password has been changed      | `{ username }`                                    |
+| `orderStatus`                 | Updates on order status                               | `{ orderId, status }`                             |
+| `shippingUpdate`              | Sends shipping update with tracking info              | `{ orderId, carrier, trackingNumber }`            |
+| `invoiceGenerated`            | Notifies user of a newly generated invoice            | `{ invoiceId, amount, dueDate }`                  |
+| `subscriptionRenewalReminder` | Alerts about subscription renewal                     | `{ planName, renewalDate, amount }`               |
+| `paymentReceived`             | Notifies user that payment has been received          | `{ amount, invoiceId }`                           |
+| `paymentFailed`               | Alerts user about a failed payment                    | `{ amount }`                                      |
+| `appointmentReminder`         | Reminds user of an appointment                        | `{ serviceName, dateTime, location }`             |
+| `eventInvitation`             | Sends event invitation                                | `{ eventName, venue, date, time }`                |
+| `meetingReminder`             | Reminds user of a scheduled meeting                   | `{ withPerson, dateTime, meetingLink }`           |
+| `accountDeactivated`          | Alerts user that their account has been deactivated   | `{ username }`                                    |
+| `accountReactivated`          | Notifies user that their account has been reactivated | `{ username }`                                    |
+| `otpLogin`                    | Sends OTP for login                                   | `{ otp }`                                         |
+| `feedbackRequest`             | Requests feedback from user                           | `{ name, company }`                               |
+| `thankYouPurchase`            | Sends a thank-you message after purchase              | `{ name, company }`                               |
+| `promotionalOffer`            | Sends promotional or discount offers                  | `{ offerTitle, promoCode, discount, expiryDate }` |
+| `seasonalGreeting`            | Sends festive or seasonal greetings                   | `{ greetingTitle, company, message }`             |
+| `systemAlert`                 | Internal system or admin alert                        | `{ alertMessage, timestamp }`                     |
+| `newUserSignup`               | Notifies admin of a new user signup                   | `{ name, email }`                                 |
+| `adminNotification`           | Generic admin alert                                   | `{ message }`                                     |
 
 ---
 
