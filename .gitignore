@@ -4,8 +4,14 @@ node_modules/
 # Private Session Data
 auth_info_baileys/
 
+package-lock.json
+
 # Logs
 *.log
 npm-debug.log*
 
 example.js
+
+atlas-credentials.env
+
+dist/
